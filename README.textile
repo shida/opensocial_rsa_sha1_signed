@@ -1,0 +1,64 @@
+h1. Opensocial RSA-SHA1 Signed
+
+このプラグインはOpenSocialのmakeRequestを
+
+<pre>
+  opt_params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.SIGNED
+</pre>
+
+で利用する際に、署名による認証をbefore_filterで行えるようにする、
+
+というとてもシンプルなプラグインです。
+
+署名方式がRSA-SHA1を利用するオープンソーシャルコンテナに使用できます
+コントローラークラスにて次のように利用します。
+
+<pre>
+  before_filter :opensocial_signed_required
+</pre>
+
+認証が失敗した場合、401 Unauthorizedのレスポンスステータスを返して終了します。
+
+認証を成功させるためには事前にオープンソーシャルコンテナから提供される公開鍵と、
+アプリケーションのURLを設定する必要があります。
+
+config/initializers/opensocial_rsa_sha1_signed.rb というファイルを用意して
+次のような内容を記述します。
+
+<pre>
+OPENSOCIAL_CERTIFICATES = {}
+
+OPENSOCIAL_CERTIFICATES['mixi.jp'] = <<END
+-----BEGIN CERTIFICATE-----
+MIICdzCCAeCgAwIBAgIJAOi/chE0MhufMA0GCSqGSIb3DQEBBQUAMDIxCzAJBgNV
+BAYTAkpQMREwDwYDVQQKEwhtaXhpIEluYzEQMA4GA1UEAxMHbWl4aS5qcDAeFw0w
+OTA0MjgwNzAyMTVaFw0xMDA0MjgwNzAyMTVaMDIxCzAJBgNVBAYTAkpQMREwDwYD
+VQQKEwhtaXhpIEluYzEQMA4GA1UEAxMHbWl4aS5qcDCBnzANBgkqhkiG9w0BAQEF
+AAOBjQAwgYkCgYEAwEj53VlQcv1WHvfWlTP+T1lXUg91W+bgJSuHAD89PdVf9Ujn
+i92EkbjqaLDzA43+U5ULlK/05jROnGwFBVdISxULgevSpiTfgbfCcKbRW7hXrTSm
+jFREp7YOvflT3rr7qqNvjm+3XE157zcU33SXMIGvX1uQH/Y4fNpEE1pmX+UCAwEA
+AaOBlDCBkTAdBgNVHQ4EFgQUn2ewbtnBTjv6CpeT37jrBNF/h6gwYgYDVR0jBFsw
+WYAUn2ewbtnBTjv6CpeT37jrBNF/h6ihNqQ0MDIxCzAJBgNVBAYTAkpQMREwDwYD
+VQQKEwhtaXhpIEluYzEQMA4GA1UEAxMHbWl4aS5qcIIJAOi/chE0MhufMAwGA1Ud
+EwQFMAMBAf8wDQYJKoZIhvcNAQEFBQADgYEAR7v8eaCaiB5xFVf9k9jOYPjCSQIJ
+58nLY869OeNXWWIQ17Tkprcf8ipxsoHj0Z7hJl/nVkSWgGj/bJLTVT9DrcEd6gLa
+h5TbGftATZCAJ8QJa3X2omCdB29qqyjz4F6QyTi930qekawPBLlWXuiP3oRNbiow
+nOLWEi16qH9WuBs=
+-----END CERTIFICATE-----
+END
+
+OPENSOCIAL_APP_URLS = {}
+OPENSOCIAL_APP_URLS['mixi.jp'] = 'http://your.domain.com/your_gadgets.xml'
+</pre>
+
+上記のmixi.jpの部分は、makeRequestが設定する「oauth_consumer_key」の
+値を指定します。
+
+OPENSOCIAL_CERTIFICATESには、キーで指定したオープンソーシャルコンテナ
+から提供されている公開鍵の文字列を指定します。
+
+OPENSOCIAL_APP_URLSには、キーで指定したオープンソーシャルコンテナ上から
+リクエストを飛ばしてくるあなたのアプリケーションのURLを指定します。
+
+----
+Copyright (c) 2009 Yuki SHIDA, released under the MIT license
