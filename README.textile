@@ -63,7 +63,7 @@ OPENSOCIAL_APP_URLSには、キーで指定したオープンソーシャルコ�
 
 h2. 参考にさせていただいたサイト
 
-* "バナナ研究所:速攻で作る OpenSocialアプリ ( RSA-SHA1 ) ブログ ":http://blog.banana-systems.com/archives/1112559.html
+* "バナナ研究所:速攻で作るOpenSocialアプリ(RSA-SHA1)ブログ":http://blog.banana-systems.com/archives/1112559.html
 
 
 ----
