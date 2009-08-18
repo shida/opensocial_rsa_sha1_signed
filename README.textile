@@ -60,10 +60,10 @@ OPENSOCIAL_CERTIFICATESには、キーで指定したオープンソーシャル
 OPENSOCIAL_APP_URLSには、キーで指定したオープンソーシャルコンテナ上から
 リクエストを飛ばしてくるあなたのアプリケーションのURLを指定します。
 
+
 h2. 参考にさせていただいたサイト
 
-* 
-* http://blog.banana-systems.com/archives/1112559.html
+* "バナナ研究所:速攻で作る OpenSocialアプリ ( RSA-SHA1 ) ブログ ":http://blog.banana-systems.com/archives/1112559.html
 
 
 ----
